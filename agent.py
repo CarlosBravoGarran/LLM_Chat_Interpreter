@@ -1,24 +1,24 @@
 from openai import OpenAI
 import os
 import json
+from datetime import datetime
+
 from pathlib import Path
 from dotenv import load_dotenv
 env_path = Path(__file__).parent / ".env"
 load_dotenv(env_path)
 
-# 1. Inicializar cliente
 api_key = os.getenv("OPENAI_API_KEY")
 
 client = OpenAI(api_key=api_key)
 
-# 2. Prompt de sistema (comportamiento del asistente)
 SYSTEM_PROMPT = """
 Eres un asistente de televisión diseñado para ayudar a personas mayores a decidir qué ver.
 Tu comportamiento depende del STATE que recibirás en cada turno.
 
 El STATE contiene:
-- contexto del usuario (hora, día, género probable)
-- candidatos del recomendador (si existen)
+- contexto del usuario (hora, día, género)
+- candidatos del recomendador
 - la última recomendación del turno anterior
 - feedback del usuario ("accepted" o "rejected")
 - el historial reciente de recomendaciones y respuestas
@@ -46,8 +46,6 @@ Tu tarea es:
 No respondas fuera del JSON.
 """
 
-
-# 3. Función para conversar con el LLM
 def conversar(mensaje_usuario, state, historial=None):
     if historial is None:
         historial = []
@@ -69,14 +67,9 @@ def conversar(mensaje_usuario, state, historial=None):
     content = respuesta.choices[0].message.content
     return content
 
-
-# 4. Ejemplo de uso interactivo
-from datetime import datetime
-
 if __name__ == "__main__":
     historial = []
 
-    # estado inicial
     state = {
         "context": {
             "hour": datetime.now().hour,
@@ -129,3 +122,4 @@ if __name__ == "__main__":
                 "item": item,
                 "feedback": state["user_feedback"]
             })
+    print(state["interaction_history"])
