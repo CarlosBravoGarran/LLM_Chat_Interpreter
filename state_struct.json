@@ -1,0 +1,11 @@
+{
+    "context": {
+        "hour": null,
+        "day": null,
+        "genre_probable": null
+    },
+    "candidates": [],
+    "last_recommendation": null,
+    "user_feedback": null,
+    "interaction_history": []
+}

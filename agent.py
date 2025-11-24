@@ -32,10 +32,10 @@ Tu tarea es:
    - pedir más información
 3. Generar un mensaje conversacional claro y amable.
 4. No inventar programas que no existan.
-5. Usar los candidatos del STATE si existen.
+5. SIEMPRE usar los candidatos del STATE si existen.
 6. Si no hay candidatos, recomendar por género ("comedia", "documental", etc).
 7. Si el usuario ha rechazado algo, ofrecer una alternativa distinta.
-8. Responder siempre con un JSON con dos campos:
+8. Responder SIEMPRE con un JSON con dos campos:
 
 {
  "action": "RECOMMEND" | "ASK" | "ALTERNATIVE" | "SMALLTALK",
@@ -82,10 +82,10 @@ if __name__ == "__main__":
         "interaction_history": []
     }
 
-    print("Asistente de TV con estado interno. Escribe 'salir' para terminar.\n")
+    print("Asistente de TV. Escribe 'salir' para terminar.\n")
 
     while True:
-        mensaje = input("Tú: ")
+        mensaje = input("Usuario: ")
 
         if mensaje.lower().strip() == "salir":
             break
