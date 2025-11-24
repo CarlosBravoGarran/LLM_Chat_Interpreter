@@ -30,6 +30,7 @@ Tu tarea es:
    - explicar la recomendación
    - ofrecer una alternativa
    - pedir más información
+   - dar feedback de la recomendación
 3. Generar un mensaje conversacional claro y amable.
 4. No inventar programas que no existan.
 5. SIEMPRE usar los candidatos del STATE si existen.
@@ -38,12 +39,22 @@ Tu tarea es:
 8. Responder SIEMPRE con un JSON con dos campos:
 
 {
- "action": "RECOMMEND" | "ASK" | "ALTERNATIVE" | "SMALLTALK",
+ "action": "RECOMMEND" | "ASK" | "ALTERNATIVE" | "SMALLTALK" | "FEEDBACK",
  "message": "mensaje conversacional para el usuario",
  "item": "título recomendado o null"
 }
 
 No respondas fuera del JSON.
+
+9. Ejemplos de respuestas:
+- Recomendación:
+{
+ "action": "RECOMMEND",
+ "message": "Te recomiendo ver 'El Gran Hotel Budapest', es una comedia encantadora.",
+ "item": "El Gran Hotel Budapest"
+}   
+
+10. SIEMPRE actualizar el STATE
 """
 
 def conversar(mensaje_usuario, state, historial=None):
@@ -104,11 +115,9 @@ if __name__ == "__main__":
 
         print("Asistente:", message)
 
-        # actualizar historial conversacional
         historial.append({"role": "user", "content": mensaje})
         historial.append({"role": "assistant", "content": message})
 
-        # actualizar estado interno
         if item:
             state["last_recommendation"] = item
 
