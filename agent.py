@@ -43,7 +43,7 @@ Tu tarea es:
  "item": "título recomendado o null"
 }
 
-No respondas NUNCA fuera del JSON.
+No respondas fuera del JSON.
 """
 
 
